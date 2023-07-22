@@ -1,4 +1,4 @@
-function Node({ isStart, isEnd, isWall, row, col }) {
+function Node({ isStart, isEnd, isWall, row, col, handleMouseDown, handleMouseEnter, handleMouseUp}) {
   // Determine the class for the node
   let nodeClass = 'w-8 h-8 border border-emerald-500 bg-gray-200'; // By default, node is a square of width and height 8 and has a gray background
   
@@ -7,7 +7,10 @@ function Node({ isStart, isEnd, isWall, row, col }) {
   if (isWall) nodeClass = 'w-8 h-8 border border-emerald-500 bg-black'; // Wall node is black
 
   return (
-    <div className={nodeClass}>
+    <div className={nodeClass} 
+        onMouseDown={() => handleMouseDown(row, col)}
+        onMouseEnter={() => handleMouseEnter(row, col)}
+        onMouseUp={handleMouseUp}>
       {/* render node content here */}
     </div>
   );
