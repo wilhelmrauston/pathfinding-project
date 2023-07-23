@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Node from '../components/node';
 import Dijkstras from "../algorithms/dijkstras";
+import '../styles/tailwind.css'
 
 export default function PathfindingViz() {
     const numRows = 20;
@@ -40,10 +41,17 @@ export default function PathfindingViz() {
             }
             setTimeout(() => {
                 const node = visitedNodesInOrder[i];
-                document.getElementById(`node-${node.row}-${node.col}`).classList.add('bg-blue-200');
+                const nodeElement = document.getElementById(`node-${node.row}-${node.col}`);
+                nodeElement.classList.remove('bg-gray-200');
+                nodeElement.classList.add('bg-blue-200');
+                setTimeout(() => {
+                    nodeElement.classList.add('visitedNode');
+                }, 10);
             }, 10 * i);
         }
     };
+
+
 
     const animateShortestPath = (nodesInShortestPathOrder) => {
         for (let i = 0; i < nodesInShortestPathOrder.length; i++) {

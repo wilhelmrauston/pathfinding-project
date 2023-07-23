@@ -1,15 +1,47 @@
-function Node({ isStart, isEnd, isWall, row, col, handleMouseDown, handleMouseEnter, handleMouseUp}) {
-  let nodeClass = 'node w-8 h-8 border border-emerald-500 bg-gray-200';
+import React from 'react';
 
-  if (isStart) nodeClass = 'node node-start w-8 h-8 border border-emerald-500 bg-green-500/20';
-  if (isEnd) nodeClass = 'node node-end w-8 h-8 border border-emerald-500 bg-red-500/20';
-  if (isWall) nodeClass = 'node node-wall w-8 h-8 border border-emerald-500 bg-black';
+import { AiOutlineFlag, AiFillCaretRight } from 'react-icons/ai';
+
+function Node({ isStart, isFinish, isWall, row, col, handleMouseDown, handleMouseEnter, handleMouseUp }) {
+  let nodeClass = 'node border border-green-200 bg-gray-200 w-8 h-8 relative';
+
+  if (isStart) {
+    nodeClass += ' node-start';
+    if (isWall) {
+      isWall = false;
+    }
+  }
+  if (isFinish) {
+    nodeClass += ' node-end';
+    if (isWall) {
+      isWall = false;
+    }
+  }
+  if (isWall) nodeClass = ' node-wall bg-black node w-8 h-8 relative';
 
   return (
-    <div id={`node-${row}-${col}`} className={nodeClass} 
-        onMouseDown={() => handleMouseDown(row, col)}
-        onMouseEnter={() => handleMouseEnter(row, col)}
-        onMouseUp={handleMouseUp}>
+    <div
+      id={`node-${row}-${col}`}
+      className={nodeClass}
+      onMouseDown={() => handleMouseDown(row, col)}
+      onMouseEnter={() => handleMouseEnter(row, col)}
+      onMouseUp={handleMouseUp}
+      style={{
+        position: 'relative',
+      }}
+    >
+
+      {isStart && (
+        <AiFillCaretRight
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-2xl"
+        />
+      )}
+
+      {isFinish && (
+        <AiOutlineFlag
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-2xl"
+        />
+      )}
     </div>
   );
 }

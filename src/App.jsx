@@ -1,5 +1,5 @@
 import PathfindingViz from './pages/PathfindingViz';
-
+import './styles/tailwind.css';
 
 function App() {
   return (
