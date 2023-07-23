@@ -1,31 +1,54 @@
-export default function Dijkstras (grid, startNode, endNode) {
-    const visitedNodesIO = [];
-    console.log(grid)
-    const unvisitedNodes = [];
+export default function Dijkstras(grid, startNode, endNode) {
+    const visitedNodesInOrder = [];
+
     startNode.distance = 0;
-    console.log(startNode)
 
-};
+    const unvisitedNodes = getAllNodes(grid);
 
-// Let’s be a even a little more descriptive and lay it out step-by-step.
+    while(unvisitedNodes.length) {
+        sortNodesByDistance(unvisitedNodes);
+        const closestNode = unvisitedNodes.shift();
 
-// 1. Set all the node’s distances to infinity and add them to an unexplored set
+        if (closestNode.isWall) continue;
+        if (closestNode.distance === Infinity) return visitedNodesInOrder;
+        closestNode.isVisited = true;
+        visitedNodesInOrder.push(closestNode);
 
-// 2. Set the starting node’s distance to 0
+        if (closestNode === endNode) return visitedNodesInOrder;
+        updateUnvisitedNeighbors(closestNode, grid);
+    }
+}
 
-// 3. Repeat the following:
+function sortNodesByDistance(unvisitedNodes) {
+    unvisitedNodes.sort((nodeA, nodeB) => nodeA.distance - nodeB.distance);
+}
 
-// A) Look for the node with the lowest distance, let this be the current node
+function updateUnvisitedNeighbors(node, grid) {
+    const unvisitedNeighbors = getUnvisitedNeighbors(node, grid);
+    for (const neighbor of unvisitedNeighbors) {
+        neighbor.distance = node.distance + 1;
+        neighbor.previousNode = node;
+    }
+}
 
-// B) Remove it from the unexplored set
+function getUnvisitedNeighbors(node, grid) {
+    const neighbors = [];
+    const {col, row} = node;
 
-// C) For each of the nodes adjacent to this node…
+    if (row > 0) neighbors.push(grid[row - 1][col]);
+    if (row < grid.length - 1) neighbors.push(grid[row + 1][col]);
+    if (col > 0) neighbors.push(grid[row][col - 1]);
+    if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]);
 
-//     If it is not walkable, ignore it. Otherwise do the following.
-//     Calculate a potential new distance based on the current node’s distance plus the distance to the adjacent node you are at.
-//     If the potential distance is less than the adjacent node’s current distance, then set the adjacent node’s distance to the potential new distance and set the adjacent node’s parent to the current node
+    return neighbors.filter(neighbor => !neighbor.isVisited);
+}
 
-// D) Stop when you:
-
-//     Remove the end node from the unexplored set, in which case the path has been found, or
-//     Fail to find the end node, and the unexplored set is empty. In this case, there is no path.
+function getAllNodes(grid) {
+    const nodes = [];
+    for (const row of grid) {
+        for (const node of row) {
+            nodes.push(node);
+        }
+    }
+    return nodes;
+}
