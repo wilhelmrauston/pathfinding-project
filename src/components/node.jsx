@@ -3,7 +3,7 @@ import React from 'react';
 import { AiOutlineFlag, AiFillCaretRight } from 'react-icons/ai';
 
 function Node({ isStart, isFinish, isWall, row, col, handleMouseDown, handleMouseEnter, handleMouseUp }) {
-  let nodeClass = 'node border border-green-200 bg-gray-200 w-8 h-8 relative';
+  let nodeClass = 'node unvisited';
 
   if (isStart) {
     nodeClass += ' node-start';
@@ -17,7 +17,7 @@ function Node({ isStart, isFinish, isWall, row, col, handleMouseDown, handleMous
       isWall = false;
     }
   }
-  if (isWall) nodeClass = ' node-wall bg-black node w-8 h-8 relative';
+  if (isWall) nodeClass = ' node-wall wall';
 
   return (
     <div

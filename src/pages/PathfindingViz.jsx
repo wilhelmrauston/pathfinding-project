@@ -42,10 +42,8 @@ export default function PathfindingViz() {
             setTimeout(() => {
                 const node = visitedNodesInOrder[i];
                 const nodeElement = document.getElementById(`node-${node.row}-${node.col}`);
-                nodeElement.classList.remove('bg-gray-200');
-                nodeElement.classList.add('bg-blue-200');
                 setTimeout(() => {
-                    nodeElement.classList.add('visitedNode');
+                    nodeElement.classList.add('visited');
                 }, 10);
             }, 10 * i);
         }
@@ -57,7 +55,7 @@ export default function PathfindingViz() {
         for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
             setTimeout(() => {
                 const node = nodesInShortestPathOrder[i];
-                document.getElementById(`node-${node.row}-${node.col}`).classList.add('bg-yellow-300');
+                document.getElementById(`node-${node.row}-${node.col}`).classList.add('shortestPath');
             }, 50 * i);
         }
     };
