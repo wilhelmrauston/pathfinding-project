@@ -33,13 +33,13 @@ function Node({ isStart, isFinish, isWall, row, col, handleMouseDown, handleMous
 
       {isStart && (
         <AiFillCaretRight
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-2xl"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-xl"
         />
       )}
 
       {isFinish && (
         <AiOutlineFlag
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-2xl"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-xl"
         />
       )}
     </div>

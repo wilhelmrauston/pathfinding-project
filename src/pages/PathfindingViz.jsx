@@ -4,8 +4,8 @@ import Dijkstras from "../algorithms/dijkstras";
 import '../styles/tailwind.css'
 
 export default function PathfindingViz() {
-    const numRows = 20;
-    const numCols = 20;
+    const numRows = 25;
+    const numCols = 50;
 
     const [grid, setGrid] = useState([]);
     const [mouseIsPressed, setMouseIsPressed] = useState(false);
@@ -128,11 +128,14 @@ function createNode(col, row) {
 function getNewGridWithWallToggled(grid, row, col) {
   const newGrid = grid.slice();
   const node = newGrid[row][col];
-  const newNode = {
-    ...node,
-    isWall: !node.isWall,
-  };
-  newGrid[row][col] = newNode;
+  if (node.isStart);
+  else{
+    const newNode = {
+        ...node,
+        isWall: !node.isWall,
+    };
+    newGrid[row][col] = newNode;
+    }
   return newGrid;
 }
 
